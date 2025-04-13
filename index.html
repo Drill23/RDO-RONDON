@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador Inteligente</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; text-align: center; }
+    table { margin: 20px auto; border-collapse: collapse; width: 95%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #ddd; }
+    .positivo { color: green; font-weight: bold; }
+    .negativo { color: red; font-weight: bold; }
+    iframe, img { max-width: 95%; height: 80vh; border: 2px solid #ccc; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    canvas { max-width: 100%; margin-top: 30px; }
+    .info { font-size: 18px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>Visualizador Inteligente de Arquivos</h1>
+  <div id="info" class="info"></div>
+  <div id="status">Carregando...</div>
+  <div id="resultado"></div>
+  <canvas id="graficoComparativo" style="display:none;"></canvas>
+
+<script>
+  async function listarArquivosJSON() {
+    try {
+      const res = await fetch('./');
+      const text = await res.text();
+      const regex = /href="([^"]+\.json)"/g;
+      const arquivos = [];
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        arquivos.push(match[1]);
+      }
+      return arquivos;
+    } catch {
+      return [];
+    }
+  }
+
+  async function carregarJSON(nome) {
+    const res = await fetch(nome);
+    return await res.json();
+  }
+
+  function extrairInfo(nome) {
+    const partes = nome.split(".");
+    return {
+      nomeArquivo: nome,
+      diaSemana: partes[0].charAt(0).toUpperCase() + partes[0].slice(1) + "-feira",
+      dataFormatada: partes[2] + "/" + partes[3] + "/20" + partes[4],
+      turno: partes[5].toUpperCase().replace("TURNO1", "Turno 1").replace("TURNO2", "Turno 2")
+    };
+  }
+
+  function mostrarCabecalho(info1, info2 = null) {
+    const div = document.getElementById("info");
+    if (info2) {
+      div.innerHTML = `<strong>📊 Comparativo de ${info1.diaSemana}, ${info1.dataFormatada}</strong><br>🕐 ${info1.turno} vs ${info2.turno}`;
+    } else {
+      div.innerHTML = `<strong>📄 Relatório de ${info1.turno}</strong><br>📅 ${info1.diaSemana}, ${info1.dataFormatada}`;
+    }
+  }
+
+  function mostrarTabelaSimples(dados) {
+    let html = "<table><tr><th>Produto</th><th>Meta (%)</th><th>Realizado (%)</th><th>Diferença (%)</th><th>Meta Atingida</th><th>Quilos</th><th>Caixas</th></tr>";
+    for (let item of dados) {
+      const diff = parseFloat(item.diferencaPercentual);
+      const classe = diff >= 0 ? 'positivo' : 'negativo';
+      const atingiu = item.atingiuMeta ? "✅" : "❌";
+      html += `<tr>
+        <td>${item.produto}</td>
+        <td>${item.meta.toFixed(3)}%</td>
+        <td>${item.realizado.toFixed(3)}%</td>
+        <td class="${classe}">${diff > 0 ? '+' : ''}${item.diferencaPercentual}%</td>
+        <td>${atingiu}</td>
+        <td>${item.quilos.toFixed(2)}</td>
+        <td>${Math.ceil(item.caixas)}</td>
+      </tr>`;
+    }
+    html += "</table>";
+    document.getElementById("resultado").innerHTML = html;
+  }
+
+  function mostrarComparacao(t1, t2) {
+    let html = "<table><tr><th>Produto</th><th>Turno 1 (%)</th><th>Turno 2 (%)</th><th>Dif. (%)</th><th>Dif. (Kg)</th><th>Dif. (Caixas)</th><th>Melhor Turno</th></tr>";
+    const labels = [], dados1 = [], dados2 = [];
+
+    for (let i = 0; i < t1.length; i++) {
+      const a = t1[i], b = t2[i];
+      const diffPerc = (b.realizado - a.realizado).toFixed(2);
+      const diffKg = (b.quilos - a.quilos).toFixed(2);
+      const diffCx = (b.caixas - a.caixas).toFixed(2);
+      const melhor = b.realizado > a.realizado ? "Turno 2 ✅" : (b.realizado < a.realizado ? "Turno 1 ✅" : "Empate");
+      const classe = diffPerc >= 0 ? 'positivo' : 'negativo';
+
+      html += `<tr>
+        <td>${a.produto}</td>
+        <td>${a.realizado.toFixed(2)}%</td>
+        <td>${b.realizado.toFixed(2)}%</td>
+        <td class="${classe}">${diffPerc}%</td>
+        <td>${diffKg}</td>
+        <td>${diffCx}</td>
+        <td>${melhor}</td>
+      </tr>`;
+
+      labels.push(a.produto);
+      dados1.push(a.realizado);
+      dados2.push(b.realizado);
+    }
+
+    html += "</table>";
+    document.getElementById("resultado").innerHTML = html;
+    desenharGrafico(labels, dados1, dados2);
+  }
+
+  function desenharGrafico(labels, dados1, dados2) {
+    const canvas = document.getElementById("graficoComparativo");
+    canvas.style.display = 'block';
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Turno 1', backgroundColor: 'rgba(54, 162, 235, 0.7)', data: dados1 },
+          { label: 'Turno 2', backgroundColor: 'rgba(75, 192, 192, 0.7)', data: dados2 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Comparação de Realizado (%) por Produto' }
+        }
+      }
+    });
+  }
+
+  async function iniciar() {
+    const arquivos = await listarArquivosJSON();
+    const arquivosValidos = arquivos.filter(a => a.includes("turno"));
+    if (arquivosValidos.length === 0) {
+      document.getElementById("status").innerText = "Nenhum arquivo JSON encontrado.";
+      return;
+    }
+
+    const arquivosOrdenados = arquivosValidos.sort();
+    const arquivo1 = arquivosOrdenados[0];
+    const info1 = extrairInfo(arquivo1);
+    const dados1 = await carregarJSON(arquivo1);
+
+    if (arquivosOrdenados.length >= 2 && arquivosOrdenados[1].includes(info1.dataFormatada.replaceAll("/", "."))) {
+      const arquivo2 = arquivosOrdenados[1];
+      const info2 = extrairInfo(arquivo2);
+      const dados2 = await carregarJSON(arquivo2);
+      mostrarCabecalho(info1, info2);
+      mostrarComparacao(dados1, dados2);
+    } else {
+      mostrarCabecalho(info1);
+      mostrarTabelaSimples(dados1);
+    }
+
+    document.getElementById("status").innerText = "";
+  }
+
+  iniciar();
+</script>
+</body>
+</html>
