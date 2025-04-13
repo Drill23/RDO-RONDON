@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de Rendimento</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; text-align: center; }
+    .menu, .voltar, .acoes { margin: 20px; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+    .info { font-size: 18px; margin: 10px 0; }
+    table { margin: 20px auto; border-collapse: collapse; width: 95%; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #ddd; }
+    .positivo { color: green; font-weight: bold; }
+    .negativo { color: red; font-weight: bold; }
+    canvas { max-width: 100%; margin-top: 30px; background: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Visualizador de Rendimento</h1>
+  <div class="menu">
+    <button onclick="mostrar('turno1')">🔵 Primeiro Turno</button>
+    <button onclick="mostrar('turno2')">🟢 Segundo Turno</button>
+    <button onclick="mostrar('comparar')">🟡 Comparar Turnos</button>
+    <button onclick="mostrar('semanal')">🟣 Análise Semanal</button>
+    <button onclick="exportarPDF()">📄 Exportar em PDF</button>
+  </div>
+
+  <div id="info" class="info"></div>
+  <div id="status">Carregando arquivos...</div>
+  <div class="acoes"><button class="voltar" onclick="voltarMenu()" style="display:none;">🔙 Voltar ao Menu</button></div>
+  <div id="resultado"></div>
+  <canvas id="graficoComparativo" style="display:none;"></canvas>
+
+<script>
+  let dados = {
+    diario1: null,
+    diario2: null,
+    semanal1: null,
+    semanal2: null
+  };
+
+  let arquivos = {
+    diario1: null,
+    diario2: null,
+    semanal1: null,
+    semanal2: null
+  };
+
+  function extrairInfo(nome) {
+    const partes = nome.split(".");
+    const tipo = nome.includes("semana") ? "semanal" : "diario";
+    const turno = partes.includes("turno1") ? "Turno 1" : "Turno 2";
+    const diaSemana = partes[0].charAt(0).toUpperCase() + partes[0].slice(1) + "-feira";
+    const data = partes.length >= 5 ? partes[2] + "/" + partes[3] + "/20" + partes[4] : "";
+    return { nome, tipo, diaSemana, data, turno };
+  }
+
+  function mostrarCabecalho(info1, info2 = null) {
+    const div = document.getElementById("info");
+    if (info2) {
+      div.innerHTML = `📊 Comparativo de ${info1.diaSemana}, ${info1.data}<br>🕐 ${info1.turno} vs ${info2.turno}`;
+    } else {
+      div.innerHTML = `📄 Relatório de ${info1.turno}<br>📅 ${info1.diaSemana}, ${info1.data}`;
+    }
+  }
+
+  function voltarMenu() {
+    document.querySelector(".menu").style.display = 'block';
+    document.querySelector(".voltar").style.display = 'none';
+    document.getElementById("info").innerHTML = "";
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("graficoComparativo").style.display = "none";
+  }
+
+  async function exportarPDF() {
+    const element = document.body;
+    html2pdf().from(element).save('relatorio.pdf');
+  }
+
+  function mostrarTabela(dados, dupla = false) {
+    let html = "<table><tr><th>Produto</th>";
+    if (dupla) {
+      html += "<th>Turno 1 (%)</th><th>Turno 2 (%)</th><th>Dif. (%)</th><th>Dif. (Kg)</th><th>Dif. (Caixas)</th><th>Melhor Turno</th></tr>";
+      const labels = [], dados1 = [], dados2 = [];
+      let v1 = 0, v2 = 0, emp = 0;
+
+      for (let i = 0; i < dados[0].length; i++) {
+        const a = dados[0][i], b = dados[1][i];
+        const diffPerc = (b.realizado - a.realizado).toFixed(3);
+        const diffKg = (b.quilos - a.quilos).toFixed(2);
+        const diffCx = Math.ceil(b.caixas) - Math.ceil(a.caixas);
+        const melhor = b.realizado > a.realizado ? (++v2, "Turno 2 ✅") : (b.realizado < a.realizado ? (++v1, "Turno 1 ✅") : (++emp, "Empate"));
+        const classe = diffPerc >= 0 ? 'positivo' : 'negativo';
+        html += `<tr><td>${a.produto}</td><td>${a.realizado.toFixed(3)}%</td><td>${b.realizado.toFixed(3)}%</td><td class="${classe}">${diffPerc}%</td><td>${diffKg}</td><td>${diffCx}</td><td>${melhor}</td></tr>`;
+        labels.push(a.produto);
+        dados1.push(a.realizado);
+        dados2.push(b.realizado);
+      }
+
+      html += `</table><p><strong>Resumo Final:</strong> Turno 1 venceu ${v1} itens, Turno 2 venceu ${v2} itens, Empates: ${emp}.</p>`;
+      document.getElementById("graficoComparativo").style.display = "block";
+      desenharGrafico(labels, dados1, dados2);
+    } else {
+      html += "<th>Meta (%)</th><th>Realizado (%)</th><th>Diferença (%)</th><th>Meta Atingida</th><th>Quilos</th><th>Caixas</th></tr>";
+      for (let item of dados) {
+        const diff = parseFloat(item.diferencaPercentual);
+        const classe = diff >= 0 ? 'positivo' : 'negativo';
+        const atingiu = item.atingiuMeta ? "✅" : "❌";
+        html += `<tr><td>${item.produto}</td><td>${item.meta.toFixed(3)}%</td><td>${item.realizado.toFixed(3)}%</td><td class="${classe}">${diff > 0 ? '+' : ''}${item.diferencaPercentual}%</td><td>${atingiu}</td><td>${item.quilos.toFixed(2)}</td><td>${Math.ceil(item.caixas)}</td></tr>`;
+      }
+    }
+    document.getElementById("resultado").innerHTML = html;
+  }
+
+  function desenharGrafico(labels, dados1, dados2) {
+    const ctx = document.getElementById("graficoComparativo").getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Turno 1', backgroundColor: 'rgba(54, 162, 235, 0.7)', data: dados1 },
+          { label: 'Turno 2', backgroundColor: 'rgba(75, 192, 192, 0.7)', data: dados2 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+          title: { display: true, text: 'Comparação de Realizado (%) por Produto' }
+        }
+      }
+    });
+  }
+
+  async function mostrar(tipo) {
+    document.querySelector(".menu").style.display = 'none';
+    document.querySelector(".voltar").style.display = 'inline-block';
+    document.getElementById("graficoComparativo").style.display = "none";
+
+    if (tipo === "turno1" && dados.diario1) {
+      mostrarCabecalho(extrairInfo(arquivos.diario1));
+      mostrarTabela(dados.diario1);
+    } else if (tipo === "turno2" && dados.diario2) {
+      mostrarCabecalho(extrairInfo(arquivos.diario2));
+      mostrarTabela(dados.diario2);
+    } else if (tipo === "comparar" && dados.diario1 && dados.diario2) {
+      mostrarCabecalho(extrairInfo(arquivos.diario1), extrairInfo(arquivos.diario2));
+      mostrarTabela([dados.diario1, dados.diario2], true);
+    } else if (tipo === "semanal" && dados.semanal1 && dados.semanal2) {
+      mostrarCabecalho(extrairInfo(arquivos.semanal1), extrairInfo(arquivos.semanal2));
+      mostrarTabela([dados.semanal1, dados.semanal2], true);
+    } else {
+      document.getElementById("info").innerText = "❌ Arquivos não encontrados ou incompletos.";
+    }
+  }
+
+  async function iniciar() {
+    try {
+      const index = await fetch("index.json").then(res => res.json());
+      for (const nome of index.arquivos) {
+        if (nome.includes("semana") && nome.includes("turno1")) {
+          arquivos.semanal1 = nome;
+          dados.semanal1 = await fetch(nome).then(res => res.json());
+        } else if (nome.includes("semana") && nome.includes("turno2")) {
+          arquivos.semanal2 = nome;
+          dados.semanal2 = await fetch(nome).then(res => res.json());
+        } else if (nome.includes("turno1")) {
+          arquivos.diario1 = nome;
+          dados.diario1 = await fetch(nome).then(res => res.json());
+        } else if (nome.includes("turno2")) {
+          arquivos.diario2 = nome;
+          dados.diario2 = await fetch(nome).then(res => res.json());
+        }
+      }
+    } catch (e) {
+      console.error("Erro ao carregar arquivos:", e);
+    } finally {
+      document.getElementById("status").style.display = "none";
+    }
+  }
+
+  iniciar();
+</script>
+</body>
+</html>
