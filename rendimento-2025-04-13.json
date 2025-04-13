@@ -1,0 +1,101 @@
+[
+  {
+    "produto": "Coxa e Sobrecoxa",
+    "meta": 26.5,
+    "realizado": 26.602,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.10",
+    "quilos": 167.41,
+    "caixas": 8.37
+  },
+  {
+    "produto": "Filé",
+    "meta": 26.5,
+    "realizado": 26.18,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.32",
+    "quilos": 525.19,
+    "caixas": 26.26
+  },
+  {
+    "produto": "Coxinha da Asa",
+    "meta": 4.6,
+    "realizado": 4.616,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.02",
+    "quilos": 26.26,
+    "caixas": 1.31
+  },
+  {
+    "produto": "Meio da Asa",
+    "meta": 2.8,
+    "realizado": 2.81,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.01",
+    "quilos": 16.41,
+    "caixas": 0.82
+  },
+  {
+    "produto": "Ponta da Asa",
+    "meta": 0.93,
+    "realizado": 0.933,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.00",
+    "quilos": 4.92,
+    "caixas": 0.25
+  },
+  {
+    "produto": "Fígado",
+    "meta": 1.6,
+    "realizado": 1.782,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.18",
+    "quilos": 298.7,
+    "caixas": 19.91
+  },
+  {
+    "produto": "Moela",
+    "meta": 1.1,
+    "realizado": 1.145,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.04",
+    "quilos": 73.86,
+    "caixas": 3.69
+  },
+  {
+    "produto": "Coração",
+    "meta": 0.48,
+    "realizado": 0.512,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.03",
+    "quilos": 52.52,
+    "caixas": 2.63
+  },
+  {
+    "produto": "Pés",
+    "meta": 2.85,
+    "realizado": 1.94,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.91",
+    "quilos": 1493.52,
+    "caixas": 93.34
+  },
+  {
+    "produto": "CMS",
+    "meta": 15,
+    "realizado": 16.592,
+    "atingiuMeta": true,
+    "diferencaPercentual": "1.59",
+    "quilos": 2612.84,
+    "caixas": 130.64
+  },
+  {
+    "produto": "Sambiquira",
+    "meta": 0.8,
+    "realizado": 0,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.80",
+    "quilos": 1312.98,
+    "caixas": 65.65
+  }
+]
