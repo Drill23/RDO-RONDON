@@ -1,0 +1,101 @@
+[
+  {
+    "produto": "Coxa e Sobrecoxa",
+    "meta": 26.5,
+    "realizado": 26.62,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.12",
+    "quilos": 63.83,
+    "caixas": 3.19
+  },
+  {
+    "produto": "Filé",
+    "meta": 26.5,
+    "realizado": 26.185,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.32",
+    "quilos": 167.55,
+    "caixas": 8.38
+  },
+  {
+    "produto": "Coxinha da Asa",
+    "meta": 4.6,
+    "realizado": 4.54,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.06",
+    "quilos": 31.91,
+    "caixas": 1.6
+  },
+  {
+    "produto": "Meio da Asa",
+    "meta": 2.8,
+    "realizado": 2.764,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.04",
+    "quilos": 19.15,
+    "caixas": 0.96
+  },
+  {
+    "produto": "Ponta da Asa",
+    "meta": 0.93,
+    "realizado": 0.918,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.01",
+    "quilos": 6.38,
+    "caixas": 0.32
+  },
+  {
+    "produto": "Fígado",
+    "meta": 1.6,
+    "realizado": 1.539,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.06",
+    "quilos": 32.45,
+    "caixas": 2.16
+  },
+  {
+    "produto": "Moela",
+    "meta": 1.1,
+    "realizado": 1.126,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.03",
+    "quilos": 13.83,
+    "caixas": 0.69
+  },
+  {
+    "produto": "Coração",
+    "meta": 0.48,
+    "realizado": 0.501,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.02",
+    "quilos": 11.17,
+    "caixas": 0.56
+  },
+  {
+    "produto": "Pés",
+    "meta": 2.85,
+    "realizado": 2.403,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.45",
+    "quilos": 237.76,
+    "caixas": 14.86
+  },
+  {
+    "produto": "CMS",
+    "meta": 15,
+    "realizado": 17.487,
+    "atingiuMeta": true,
+    "diferencaPercentual": "2.49",
+    "quilos": 1322.84,
+    "caixas": 66.14
+  },
+  {
+    "produto": "Sambiquira",
+    "meta": 0.8,
+    "realizado": 0,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.80",
+    "quilos": 425.52,
+    "caixas": 21.28
+  }
+]

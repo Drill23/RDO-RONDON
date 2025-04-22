@@ -1,0 +1,101 @@
+[
+  {
+    "produto": "Coxa e Sobrecoxa",
+    "meta": 26.5,
+    "realizado": 27.624,
+    "atingiuMeta": true,
+    "diferencaPercentual": "1.12",
+    "quilos": 608.36,
+    "caixas": 30.42
+  },
+  {
+    "produto": "Filé",
+    "meta": 26.5,
+    "realizado": 25.194,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-1.31",
+    "quilos": 706.87,
+    "caixas": 35.34
+  },
+  {
+    "produto": "Coxinha da Asa",
+    "meta": 4.6,
+    "realizado": 4.615,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.02",
+    "quilos": 8.12,
+    "caixas": 0.41
+  },
+  {
+    "produto": "Meio da Asa",
+    "meta": 2.8,
+    "realizado": 2.809,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.01",
+    "quilos": 4.87,
+    "caixas": 0.24
+  },
+  {
+    "produto": "Ponta da Asa",
+    "meta": 0.93,
+    "realizado": 0.933,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.00",
+    "quilos": 1.62,
+    "caixas": 0.08
+  },
+  {
+    "produto": "Fígado",
+    "meta": 1.6,
+    "realizado": 1.78,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.18",
+    "quilos": 97.42,
+    "caixas": 6.49
+  },
+  {
+    "produto": "Moela",
+    "meta": 1.1,
+    "realizado": 1.089,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.01",
+    "quilos": 5.95,
+    "caixas": 0.3
+  },
+  {
+    "produto": "Coração",
+    "meta": 0.48,
+    "realizado": 0.526,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.05",
+    "quilos": 24.9,
+    "caixas": 1.24
+  },
+  {
+    "produto": "Pés",
+    "meta": 2.85,
+    "realizado": 2.526,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.32",
+    "quilos": 175.37,
+    "caixas": 10.96
+  },
+  {
+    "produto": "CMS",
+    "meta": 15,
+    "realizado": 16.089,
+    "atingiuMeta": true,
+    "diferencaPercentual": "1.09",
+    "quilos": 589.42,
+    "caixas": 29.47
+  },
+  {
+    "produto": "Sambiquira",
+    "meta": 0.8,
+    "realizado": 0,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.80",
+    "quilos": 433,
+    "caixas": 21.65
+  }
+]
