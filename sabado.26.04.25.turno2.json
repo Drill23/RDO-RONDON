@@ -1,0 +1,101 @@
+[
+  {
+    "produto": "Coxa e Sobrecoxa",
+    "meta": 26.5,
+    "realizado": 26.237,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.26",
+    "quilos": 454.24,
+    "caixas": 22.71
+  },
+  {
+    "produto": "Filé",
+    "meta": 26.5,
+    "realizado": 25.589,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.91",
+    "quilos": 1573.44,
+    "caixas": 78.67
+  },
+  {
+    "produto": "Coxinha da Asa",
+    "meta": 4.6,
+    "realizado": 4.521,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.08",
+    "quilos": 136.45,
+    "caixas": 6.82
+  },
+  {
+    "produto": "Meio da Asa",
+    "meta": 2.8,
+    "realizado": 2.752,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.05",
+    "quilos": 82.9,
+    "caixas": 4.15
+  },
+  {
+    "produto": "Ponta da Asa",
+    "meta": 0.93,
+    "realizado": 0.914,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.02",
+    "quilos": 27.63,
+    "caixas": 1.38
+  },
+  {
+    "produto": "Fígado",
+    "meta": 1.6,
+    "realizado": 1.537,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.06",
+    "quilos": 108.81,
+    "caixas": 7.25
+  },
+  {
+    "produto": "Moela",
+    "meta": 1.1,
+    "realizado": 0.95,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.15",
+    "quilos": 259.07,
+    "caixas": 12.95
+  },
+  {
+    "produto": "Coração",
+    "meta": 0.48,
+    "realizado": 0.475,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.01",
+    "quilos": 8.64,
+    "caixas": 0.43
+  },
+  {
+    "produto": "Pés",
+    "meta": 2.85,
+    "realizado": 2.01,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.84",
+    "quilos": 1450.81,
+    "caixas": 90.68
+  },
+  {
+    "produto": "CMS",
+    "meta": 15,
+    "realizado": 15.017,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.02",
+    "quilos": 29.36,
+    "caixas": 1.47
+  },
+  {
+    "produto": "Sambiquira",
+    "meta": 0.8,
+    "realizado": 0,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.80",
+    "quilos": 1381.73,
+    "caixas": 69.09
+  }
+]

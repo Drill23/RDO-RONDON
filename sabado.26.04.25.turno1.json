@@ -1,0 +1,101 @@
+[
+  {
+    "produto": "Coxa e Sobrecoxa",
+    "meta": 26.5,
+    "realizado": 27.409,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.91",
+    "quilos": 1508.71,
+    "caixas": 75.44
+  },
+  {
+    "produto": "Filé",
+    "meta": 26.5,
+    "realizado": 25.849,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.65",
+    "quilos": 1080.5,
+    "caixas": 54.02
+  },
+  {
+    "produto": "Coxinha da Asa",
+    "meta": 4.6,
+    "realizado": 4.625,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.03",
+    "quilos": 41.49,
+    "caixas": 2.07
+  },
+  {
+    "produto": "Meio da Asa",
+    "meta": 2.8,
+    "realizado": 2.815,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.02",
+    "quilos": 24.9,
+    "caixas": 1.24
+  },
+  {
+    "produto": "Ponta da Asa",
+    "meta": 0.93,
+    "realizado": 0.935,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.01",
+    "quilos": 8.3,
+    "caixas": 0.42
+  },
+  {
+    "produto": "Fígado",
+    "meta": 1.6,
+    "realizado": 1.669,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.07",
+    "quilos": 114.52,
+    "caixas": 7.63
+  },
+  {
+    "produto": "Moela",
+    "meta": 1.1,
+    "realizado": 1,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.10",
+    "quilos": 165.98,
+    "caixas": 8.3
+  },
+  {
+    "produto": "Coração",
+    "meta": 0.48,
+    "realizado": 0.506,
+    "atingiuMeta": true,
+    "diferencaPercentual": "0.03",
+    "quilos": 43.15,
+    "caixas": 2.16
+  },
+  {
+    "produto": "Pés",
+    "meta": 2.85,
+    "realizado": 2.477,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.37",
+    "quilos": 619.09,
+    "caixas": 38.69
+  },
+  {
+    "produto": "CMS",
+    "meta": 15,
+    "realizado": 16.84,
+    "atingiuMeta": true,
+    "diferencaPercentual": "1.84",
+    "quilos": 3053.94,
+    "caixas": 152.7
+  },
+  {
+    "produto": "Sambiquira",
+    "meta": 0.8,
+    "realizado": 0,
+    "atingiuMeta": false,
+    "diferencaPercentual": "-0.80",
+    "quilos": 1327.8,
+    "caixas": 66.39
+  }
+]
